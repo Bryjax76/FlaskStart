@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NASA NeoWs Asteroids</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Near Earth Objects</h1>
+    <form method="post">
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" required>
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" required>
+        <button type="submit">Search</button>
+    </form>
+    {% if asteroids %}
+        <h2>Asteroids:</h2>
+        <ul>
+            {% for date, asteroid_list in asteroids.items() %}
+                <li>{{ date }}
+                    <ul>
+                        {% for asteroid in asteroid_list %}
+                            <li>Name: {{ asteroid['name'] }}, Hazardous: {{ asteroid['is_potentially_hazardous_asteroid'] }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
